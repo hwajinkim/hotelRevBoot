@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>소노러스호텔</title>
+</head>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+</th:block>
+
+<th:block layout:fragment="script">
+    <th:block th:if="${isError}">
+        <script>
+            var message = "[[${message}]]";
+            alert(message);
+            history.go(-1);
+        </script>
+    </th:block>
+    <th:block th:if="${!isError}">
+        <script>
+            var message = "[[${message}]]";
+            alert(message);
+            var locationURL = "[[${locationURL}]]";
+           location.href=locationURL;
+        </script>
+    </th:block>
+
+</th:block>
+
+</html>

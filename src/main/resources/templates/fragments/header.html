@@ -5,9 +5,15 @@
 <header>
         <a th:href="@{/main}"><img id="logo" th:src="@{/images/logo.png}"/></a>
         <nav id="top_menu">
-                <!--<th:block th:if=""-->
-                <a th:href="@{/login/loginForm}">로그인</a> | <a th:href="@{/member/addMember}">회원가입</a>
-                <a th:href="@{/login/logout}">로그아웃</a> | <a th:href="@{/member/memberInfo}">마이페이지</a>
+                <th:block th:if="${session.loginMember != null}">
+                        <a th:href="@{/login/logout}">로그아웃</a> | <a th:href="@{/member/memberInfo}">마이페이지</a>
+                </th:block>
+                <th:block th:if="${session.loginMember == null}">
+                        <a th:href="@{/login/loginForm}">로그인</a> | <a th:href="@{/member/addMember}">회원가입</a>
+                </th:block>
+
+
+
         </nav>
         <div class="dropmenu">
                 <ul>

@@ -2,6 +2,7 @@ package com.boot.sonorous.user.controller;
 
 import com.boot.sonorous.admin.entity.Member;
 import com.boot.sonorous.user.service.SonorousMemberService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.io.PrintWriter;
 
 @Controller
 public class SonorousLoginController {
@@ -47,6 +50,21 @@ public class SonorousLoginController {
         model.addAttribute("locationURL", "/main");
 
         return viewPage;
+    }
+
+    @GetMapping("/login/logout")
+    public String logout(Model model,
+                         HttpSession session, HttpServletResponse response) throws Exception{
+
+        session.removeAttribute("loginMember");
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('로그아웃 되었습니다.'); location.href='/main';</script>");
+        out.flush();
+        out.close();
+
+        return null;
+
     }
 
 }
