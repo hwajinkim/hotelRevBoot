@@ -6,19 +6,26 @@
         <a th:href="@{/main}"><img id="logo" th:src="@{/images/logo.png}"/></a>
         <nav id="top_menu">
                 <th:block th:if="${session.loginMember != null}">
+
                         <a th:href="@{/login/logout}">로그아웃</a> | <a th:href="@{/member/memberInfo}">마이페이지</a>
                 </th:block>
                 <th:block th:if="${session.loginMember == null}">
                         <a th:href="@{/login/loginForm}">로그인</a> | <a th:href="@{/member/addMember}">회원가입</a>
                 </th:block>
-
-
-
         </nav>
         <div class="dropmenu">
                 <ul>
                         <li><a th:href="@{#}">소개</a></li>
-                        <li><a th:href="@{/rsvList}" id="current">예약</a></li>
+                        <th:block th:if="${session.loginMember != null}" th:with="data=${session.loginMember.mAuth}">
+                                        <th:block th:if="${#strings.equals(data,'USER')}">
+                                                <li><a th:href="@{/rsvList}" id="current">예약</a></li>
+                                        </th:block>
+                                        <th:block th:if="${#strings.equals(data,'ADMIN')}">
+                                                <li><a th:href="@{/roomList}">객실관리</a></li>
+                                                <li><a th:href="@{/reservManageList}">예약관리</a></li>
+                                        </th:block>
+                                </li>
+                        </th:block>
                         <li><a th:href="@{#}">공지사항</a></li>
                 </ul>
         </div>

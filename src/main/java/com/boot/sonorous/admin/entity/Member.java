@@ -17,6 +17,8 @@ public class Member {
     @Column(name = "M_PW")
     private String mPw;
 
+    @Column(name = "M_AUTH")
+    private String mAuth;
     private String country;
     private String eName;
     private String kName;
