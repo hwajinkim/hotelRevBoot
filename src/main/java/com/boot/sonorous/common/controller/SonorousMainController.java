@@ -1,4 +1,4 @@
-package com.boot.sonorous.user.controller;
+package com.boot.sonorous.common.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

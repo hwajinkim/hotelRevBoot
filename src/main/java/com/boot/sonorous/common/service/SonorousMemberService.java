@@ -1,7 +1,7 @@
-package com.boot.sonorous.user.service;
+package com.boot.sonorous.common.service;
 
-import com.boot.sonorous.admin.entity.Member;
-import com.boot.sonorous.user.repository.SonorousMemberRepository;
+import com.boot.sonorous.common.entity.Member;
+import com.boot.sonorous.common.repository.SonorousMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

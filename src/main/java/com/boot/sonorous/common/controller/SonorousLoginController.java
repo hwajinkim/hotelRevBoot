@@ -1,7 +1,7 @@
-package com.boot.sonorous.user.controller;
+package com.boot.sonorous.common.controller;
 
-import com.boot.sonorous.admin.entity.Member;
-import com.boot.sonorous.user.service.SonorousMemberService;
+import com.boot.sonorous.common.entity.Member;
+import com.boot.sonorous.common.service.SonorousMemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

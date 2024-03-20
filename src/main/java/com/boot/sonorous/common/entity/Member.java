@@ -1,4 +1,4 @@
-package com.boot.sonorous.admin.entity;
+package com.boot.sonorous.common.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
