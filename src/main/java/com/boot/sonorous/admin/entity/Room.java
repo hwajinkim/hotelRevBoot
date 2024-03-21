@@ -24,4 +24,9 @@ public class Room {
     private String insDate;
     private String modId;
     private String modDate;
+
+    @OneToOne
+    @JoinColumn(name="roomId")
+    private RoomImage roomImage;
+
 }

@@ -32,12 +32,10 @@ public class SonorousRoomController {
             out.close();
         }
 
-
         List<Room> roomList = sonorousRoomService.roomList();
         System.out.print(roomList);
 
-
-
+        model.addAttribute("roomList", roomList);
 
 
         return "admin/roomList";

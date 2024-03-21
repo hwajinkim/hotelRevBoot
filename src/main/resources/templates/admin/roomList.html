@@ -19,7 +19,37 @@
 <!-- Content -->
 <div layout:fragment="content">
     <section id="main">
-
+        <div id="title">
+            <ul>
+                <li>객실목록페이지</li>
+            </ul>
+        </div>
+        <div id="table">
+            <table>
+                <caption style="visibility:hidden">카테고리ID, 케테고리명, 사용여부, Description, 등록자 표시하는 테이블</caption>
+                <colgroup>
+                    <col width="10%"/>
+                    <col width="30%"/>
+                    <col width="40%"/>
+                    <col width="20%"/>
+                </colgroup>
+                <tr>
+                    <th align="center">No</th>
+                    <th align="center">이미지</th>
+                    <th align="center">객실이름</th>
+                    <th align="center">등록일</th>
+                </tr>
+                <tr th:each="room : ${roomList}">
+                    <td th:text="${room.Id}"></td>
+                    <td th:if="${room.roomImage != null}">
+                        <img style="width: 100px;height:100px" th:src="'/upload/' + ${room.roomImage.roomImagePath} + '/' + ${room.roomImage.roomImageName}"/></td>
+                    <td>
+                        <a th:href="'/roomView?Id=' + ${room.Id}" th:text="${room.roomName}"></a>
+                    </td>
+                    <td th:text="${room.insDate}"></td>
+                </tr>
+            </table>
+        </div>
     </section>
 </div>
 </html>
