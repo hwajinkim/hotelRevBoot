@@ -7,10 +7,10 @@
         <nav id="top_menu">
                 <th:block th:if="${session.loginMember != null}">
 
-                        <a th:href="@{/login/logout}">로그아웃</a> | <a th:href="@{/member/memberInfo}">마이페이지</a>
+                        <a th:href="@{/common/logout}">로그아웃</a> | <a th:href="@{/common/memberInfo}">마이페이지</a>
                 </th:block>
                 <th:block th:if="${session.loginMember == null}">
-                        <a th:href="@{/login/loginForm}">로그인</a> | <a th:href="@{/member/addMember}">회원가입</a>
+                        <a th:href="@{/common/loginForm}">로그인</a> | <a th:href="@{/common/addMember}">회원가입</a>
                 </th:block>
         </nav>
         <div class="dropmenu">
@@ -21,8 +21,8 @@
                                                 <li><a th:href="@{/rsvList}" id="current">예약</a></li>
                                         </th:block>
                                         <th:block th:if="${#strings.equals(data,'ADMIN')}">
-                                                <li><a th:href="@{/roomList}">객실관리</a></li>
-                                                <li><a th:href="@{/reservManageList}">예약관리</a></li>
+                                                <li><a th:href="@{/admin/roomList}">객실관리</a></li>
+                                                <li><a th:href="@{/admin/reservManageList}">예약관리</a></li>
                                         </th:block>
                                 </li>
                         </th:block>

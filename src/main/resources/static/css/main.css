@@ -17,7 +17,7 @@ ul{
 	width:1100px;
 	margin:0 auto;
 }
- #dv1{
+#dv1{
 	font-size:13px;
 	float:left;
 	margin:80px 0 0 375px;
@@ -29,41 +29,14 @@ header{
 	height:180px;
 	position:relative;
 	background-color:#d9d9d9
-
 }
+
 header #logo{
 	position:absolute;
 	top:10px;
 	left:45%;
 	width : 200px;
 	height : 170px;
-}
-
-header #search{
-	float:right;
-	font-family:"Arial";
-	font-size:12px;
-	color:#4800ff;
-	margin:70px 30px 0 0;
-}
-header #search #search_title{
-	float:left;
-	margin-top:6px;
-}
-header #search #search_form{
-	float:left;
-}
-header #search #search_form input{
-	width:80px;
-	height:16px;
-	border:0;
-	background-color:#ffffff;
-	border-bottom:solid 1px #cccccc;
-	margin-left:5px;
-}
-header #search #search_button{
-	float:left;
-	margin:3px 0 0 3px;
 }
 
 header #top_menu{
@@ -83,35 +56,7 @@ header #top_menu a:visited{
 	color:#000000;
 }
 
-/* header #main_menu{
-	width:100%;
-	height:38px;
-	position:absolute;
-	top:100px;
-	left:5%;
-}
-header #main_menu li{
-	display:inline-block;
-	margin:12px 40px 0 40px;
-	font-size:13px;
-}
-header #main_menu a:link{
-	text-decoration:none;
-	color:#333333;
-}
-header #main_menu a:hover{
-	text-decoration:none;
-	color:#333333;
-}
-header #main_menu a:visited{
-	text-decoration:none;
-	color:#333333;
-}
-header #main_menu a:active{
-	text-decoration:none;
-	color:#333333;
-}  */
-.dropmenu{
+header .dropmenu{
 	border:none;
 	border:0px;
 	margin:0px;
@@ -120,19 +65,19 @@ header #main_menu a:active{
 	font-size:17px;
 }
 
-.dropmenu ul{
+header .dropmenu ul{
 	height:100px;
 	list-style:none;
 	margin:0;
 	padding:0;
 }
 
-.dropmenu li{
+header .dropmenu li{
 	float:left;
 	padding:0px;
 }
 
-.dropmenu li a{
+header .dropmenu li a{
 	color:#fff;
 	display:block;
 	line-height:100px;
@@ -142,13 +87,13 @@ header #main_menu a:active{
 	text-decoration:none;
 }
 
-.dropmenu li a:hover, .dropmenu ul li:hover a{
+header .dropmenu li a:hover, .dropmenu ul li:hover a{
 	background: rgb(31,31,31);
 	color:#FFFFFF;
 	text-decoration:none;
 }
 
-.dropmenu li ul{
+header .dropmenu li ul{
 	background: red;
 	display:none;
 	height:auto;
@@ -160,206 +105,16 @@ header #main_menu a:active{
 
 }
 
-.dropmenu li:hover ul{
-	display:block;
-}
-
-.dropmenu li li {
-	background: red;
-	display:block;
-	float:none;
-	margin:0px;
-	padding:0px;
-	width:200px;
-}
-
-.dropmenu li:hover li a{
-	background:none;
-}
-
-.dropmenu li ul a{
-	display:block;
-	height:80px;
-	font-size:14px;
-	margin:0px;
-	padding:0px 10px 0px 15px;
-	text-align:left;
-}
-
-.dropmenu li ul a:hover, .dropmenu li ul li:hover a{
-	background: rgb(171,171,171);
-	border:0px;
-	color:#ffffff;
-	text-decoration:none;
-}
-
-.dropmenu p{
-	clear:left;
-}
-
-aside{/*main.css*/
-	width:170px;
-	float:left;
-	margin-top:10px;
-}
-aside #notice{/*main.css*/
-	width:170px;
-	height:135px;
-	margin-top:20px;
-	background-color:#d9d9d9;
-	font-weight:bold;
-	text-align:center;
-}
-aside #notice_title{
-	background-color:#999999;
-	width:150px;
-	padding:10px;
-	font-weight:bold;
-}
-aside #notice ul{
-	margin-top:20px;
-}
-
-aside #notice li{
-	margin:10px;
-}
-
-aside #notice li a:link{
-	text-decoration:none;
-	color:#333333;
-}
-aside #notice li a:hover{
-	text-decoration:none;
-	color:#333333;
-}
-aside #notice li a:visited{
-	text-decoration:none;
-	color:#333333;
-}
-aside #notice li a:active{
-	text-decoration:none;
-	color:#333333;
-}
-
-section #main{/*main.css*/
+section #main{
 	width:100%;
-
-}
-section #main_image{
-	/* float:left;
-	margin:70px 0 0 10px;
-	border:solid 5px #d5f4ff;
-	padding:2px; */
 }
 
-section#special_shop{/*main.css*/
-	width:592px;
-	height:389px;
-	margin:20px 0 0 230px;
-	float:left;
-	background-image:url("img/bestfish.jpg");
-	background-repeat:no-repeat;
+img.slide1{
+	width:100%;
 }
-section#special_shop li{
-	display:inline;
-	margin-top:40px;
-}
-section#special_shop img{
-	padding:10px;
-	margin:95px 0px 0 18px;
-	border:solid 1px #ffa400;
-}
-section#special_banner{
-	float:left;
-	margin:19px 0 0 -180px;
-}
-section#special_banner div{
-	width:430px;
-	height:88px;
-}
-section#special_banner #banner1{
-	background-image:url("img/popular.jpg");
-	background-repeat:no-repeat;
-}
-section#special_banner #banner2{
-	margin-top:10px;
-	background-image:url("img/unique.jpg");
-	background-repeat:no-repeat;
-}
-section#special_banner #banner3{
-	margin-top:10px;
-	background-image:url("img/cute.jpg");
-	background-repeat:no-repeat;
-}
-section#special_banner ul{
-	padding:10px 0 0 210px;
-}
-section#special_banner li{
-	display:inline;
-}
-section#new{/*main.css*/
-	width:900px;
-	height:650px;
-	margin:770px 0 0 200px;
-	border-top:solid 3px #0092ff;
-}
-section#new h3{
-	float:left;
-	margin:20px 0 0 -600px;
-}
-section#new h3 span{
-	color:#4800ff;
-}
-section#new .item{
-	float:left;
-	text-align:center;
-	margin:10px 0 30px 40px;
-	padding:20px;
-	border:solid 2px #d5f4ff;
-}
-section#new .item .subject{
-	margin-top:10px;
-	color:#4800ff;
-	border-bottom:solid 2px #d5f4ff;
-	padding:5px;
-}
-section#new .item .price{
-	margin-top:5px;
-	font-weight:bold;
-}
-section#new2{/*main.css*/
-	width:900px;
-	height:200px;
-	margin:30px 0 0 200px;
-	border-top:solid 3px #0092ff;
-}
-section#new2 h3{
-	float:left;
-	margin:20px 0 0 20px;
-}
-section#new2 h3 span{
-	color:#4800ff;
-}
-section#new2 .item{
-	float:left;
-	text-align:center;
-	margin:30px 0 30px 45px;
-	padding:20px;
-	border:solid 2px #d5f4ff;
-}
-section#new2 .item .subject{
-	margin-top:10px;
-	color:#4800ff;
-	border-bottom:solid 2px #d5f4ff;
-	padding:5px;
-}
-section#new2 .item .price{
-	margin-top:5px;
-	font-weight:bold;
-}
+
 footer{/*common.css*/
 	height:200px;
-	margin-top:30%;
 }
 footer #footer_menu_box{
 	width:100%;
@@ -406,9 +161,6 @@ footer #footer_box{
 }
 footer #footer_box div{
 	float:left;
-}
-footer #footer_box #footer_logo{
-	margin:30px 0 0 30px;
 }
 footer #footer_box #address{
 	margin:50px 0 0 60px;

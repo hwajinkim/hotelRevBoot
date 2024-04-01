@@ -1,12 +1,15 @@
 package com.boot.sonorous.admin.entity;
 
+import com.boot.sonorous.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
-@Table(name = "T_ROOM")
-public class Room {
+@ToString(exclude = "roomImage")
+@Table(name = "ROOM")
+public class Room extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +24,8 @@ public class Room {
     private String peopleNum;
     private String roomSpec;
     private String insId;
-    private String insDate;
     private String modId;
-    private String modDate;
 
-    @OneToOne
-    @JoinColumn(name="roomId")
+    @OneToOne(mappedBy = "room")
     private RoomImage roomImage;
-
 }

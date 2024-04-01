@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "T_ROOM_IMAGE")
+@Table(name = "ROOM_IMAGE")
 public class RoomImage {
 
     @Id
@@ -13,10 +13,10 @@ public class RoomImage {
     @Column(name = "ROOM_IMAGE_ID")
     private int Id;
 
-    private String roomId;
     private String roomImageName;
     private String roomImagePath;
 
-
-
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="room_id")
+    private Room room;
 }

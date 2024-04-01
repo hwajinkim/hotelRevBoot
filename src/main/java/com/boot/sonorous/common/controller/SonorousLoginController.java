@@ -19,12 +19,12 @@ public class SonorousLoginController {
     @Autowired
     private SonorousMemberService sonorousMemberService;
 
-    @GetMapping("/login/loginForm")
+    @GetMapping("/common/loginForm")
     public String loginForm(){
-        return "login/loginForm";
+        return "common/loginForm";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/common/login")
     public String login(@ModelAttribute Member member,
                         Model model,
                         HttpSession session) throws Exception{
@@ -52,7 +52,7 @@ public class SonorousLoginController {
         return viewPage;
     }
 
-    @GetMapping("/login/logout")
+    @GetMapping("/common/logout")
     public String logout(Model model,
                          HttpSession session, HttpServletResponse response) throws Exception{
 

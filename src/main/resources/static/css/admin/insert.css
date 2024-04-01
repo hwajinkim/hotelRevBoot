@@ -1,0 +1,12 @@
+div #insert_area{
+    margin: 50px 0 50px 0;
+}
+
+#table{
+    margin:auto;
+    text-align:center;
+}
+
+table tr td{
+    text-align:left;
+}

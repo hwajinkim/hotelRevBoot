@@ -10,19 +10,19 @@
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/main.css}" >
-    <link rel="stylesheet" th:href="@{/css/login.css}" >
+    <link rel="stylesheet" th:href="@{/css/common/login.css}" >
 </th:block>
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
-    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/common/login.js}"></script>
 </th:block>
 
 <div layout:fragment="content">
     <div class="container" align="center">
         <h3>로그인</h3>
 
-        <form action="/login" name="loginForm" method="post">
+        <form action="/common/login" name="loginForm" method="post">
             <table class="table table-bordered" style="width : 300px">
                 <tr>
                     <td>아이디</td>

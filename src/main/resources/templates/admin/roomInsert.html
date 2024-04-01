@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>소노러스호텔</title>
+</head>
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/main.css}" >
+    <link rel="stylesheet" th:href="@{/css/admin/insert.css}" >
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+    <script th:src="@{/js/admin/insert.js}"></script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <section id="main">
+        <form action="/admin/roomInsert" name="insertForm" method="post" enctype="multipart/form-data">
+            <div id="insert_area">
+                <div id="title">객실등록페이지</div>
+                <div id="table">
+                    <table style="margin:auto;">
+                        <caption style="visibility:hidden">객실등록 테이블</caption>
+                        <colgroup>
+                            <col style="width: 20%;">
+                            <col style="width: 30%;">
+                            <col style="width: 20%;">
+                            <col style="width: 30%;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th><span id="vali">*</span>객실명</th>
+                            <td colspan="3"><input type="text" id="roomName" name="roomName" /></td>
+                        </tr>
+                        <tr>
+                            <th><span id="vali">*</span>객실요금</th>
+                            <td><input type="text" id="roomPrice" name="roomPrice" />&nbsp;원</td>
+                            <th><span id="vali">*</span>객실수</th>
+                            <td><input type="number" id="roomAmount" name="roomAmount" /></td>
+                        </tr>
+                        <tr>
+                            <th><span id="vali">*</span>객실크기</th>
+                            <td><input type="number" id="roomSize" name="roomSize" step="0.01" />&nbsp;㎡</td>
+                            <th><span id="vali">*</span>최대인원수</th>
+                            <td><input type="number" id="peopleNum" name="peopleNum" /></td>
+                        <tr>
+                            <th><span id="vali">*</span>침대타입</th>
+                            <td colspan="3"><input type="text" id="bedType" name="bedType" /></td>
+                        </tr>
+                        <tr>
+                            <th>특이사항</th>
+                            <td colspan="3"><textarea id="roomSpec" name="roomSpec"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>첨부파일</th>
+                            <td colspan="3">
+                                <div id="fileList">
+                                    <div>
+                                        <!-- inline은 붙여서, inline-block은 블록 형태, 약간 여백 있음 -->
+                                        <input type="file" name="file" style="display: inline-block;" accept="">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="btn">
+                        <button type="button" onclick="insert();">등록</button>
+                        <button type="button" onclick="location.href='/admin/roomList'">목록</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+</html>

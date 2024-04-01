@@ -10,6 +10,7 @@
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/main.css}" >
+    <link rel="stylesheet" th:href="@{/css/admin/list.css}" >
 </th:block>
 
 <th:block layout:fragment="script">
@@ -19,36 +20,48 @@
 <!-- Content -->
 <div layout:fragment="content">
     <section id="main">
-        <div id="title">
-            <ul>
-                <li>객실목록페이지</li>
-            </ul>
-        </div>
-        <div id="table">
-            <table>
-                <caption style="visibility:hidden">카테고리ID, 케테고리명, 사용여부, Description, 등록자 표시하는 테이블</caption>
-                <colgroup>
-                    <col width="10%"/>
-                    <col width="30%"/>
-                    <col width="40%"/>
-                    <col width="20%"/>
-                </colgroup>
-                <tr>
-                    <th align="center">No</th>
-                    <th align="center">이미지</th>
-                    <th align="center">객실이름</th>
-                    <th align="center">등록일</th>
-                </tr>
-                <tr th:each="room : ${roomList}">
-                    <td th:text="${room.Id}"></td>
-                    <td th:if="${room.roomImage != null}">
-                        <img style="width: 100px;height:100px" th:src="'/upload/' + ${room.roomImage.roomImagePath} + '/' + ${room.roomImage.roomImageName}"/></td>
-                    <td>
-                        <a th:href="'/roomView?Id=' + ${room.Id}" th:text="${room.roomName}"></a>
-                    </td>
-                    <td th:text="${room.insDate}"></td>
-                </tr>
-            </table>
+        <div id="list_area">
+            <div id="title">객실목록페이지</div>
+            <div id="table">
+                <table style="margin:auto; text-align:center;">
+                    <caption style="visibility:hidden">카테고리ID, 케테고리명, 사용여부, Description, 등록자 표시하는 테이블</caption>
+                    <colgroup>
+                        <col width="10%"/>
+                        <col width="30%"/>
+                        <col width="40%"/>
+                        <col width="20%"/>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th align="center">No</th>
+                            <th align="center">이미지</th>
+                            <th align="center">객실이름</th>
+                            <th align="center">등록일</th>
+                        </tr>
+                        <tr th:each="room : ${roomList}">
+                            <td th:text="${room.room.Id}"></td>
+                            <td th:if="${room.roomImageName != null}">
+                                <img style="width: 150px;height:100px" th:src="${room.roomImagePath}"/></td>
+                            <td>
+                                <a th:href="'/admin/roomView?Id=' + ${room.room.Id}" th:text="${room.room.roomName}"></a>
+                            </td>
+                            <td th:text="${#strings.substring(room.room.createdDate, 0, 10)}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="btn">
+                     <span class="btn_blue_l" >
+                         <a href="/admin/roomInsertPage">등록</a>
+                         <img class="btn_blue_r" th:src="@{/images/example/btn_bg_r.gif}">
+                     </span>
+                </div>
+                <th:bock th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <a th:if="${page != nowPage}" th:href="@{/admin/roomList(page = ${page-1})}" th:text="${page}"></a>
+                    <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+                </th:bock>
+
+            </div>
+
         </div>
     </section>
 </div>
