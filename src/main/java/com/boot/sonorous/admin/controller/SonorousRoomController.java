@@ -89,7 +89,6 @@ public class SonorousRoomController {
         room.setPeopleNum(room.getPeopleNum());
         room.setBedType(room.getBedType());
         roomTemp.setRoom(room);
-        System.out.print(roomTemp);
         sonorousRoomService.update(roomTemp);
 
         model.addAttribute("message", "글 수정이 완료되었습니다.");
