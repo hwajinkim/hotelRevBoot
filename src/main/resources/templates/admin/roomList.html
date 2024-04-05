@@ -41,7 +41,8 @@
                         <tr th:each="room : ${roomList}">
                             <td th:text="${room.room.Id}"></td>
                             <td th:if="${room.roomImageName != null}">
-                                <img style="width: 150px;height:100px" th:src="${room.roomImagePath}"/></td>
+                                <img style="width: 150px;height:100px" th:src="${room.roomImagePath}"/>
+                            </td>
                             <td>
                                 <a th:href="'/admin/roomView?Id=' + ${room.room.Id}" th:text="${room.room.roomName}"></a>
                             </td>
@@ -59,9 +60,7 @@
                     <a th:if="${page != nowPage}" th:href="@{/admin/roomList(page = ${page-1})}" th:text="${page}"></a>
                     <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
                 </th:bock>
-
             </div>
-
         </div>
     </section>
 </div>

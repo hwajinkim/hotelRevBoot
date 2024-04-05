@@ -15,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,6 +60,40 @@ public class SonorousRoomController {
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl","/admin/roomList");
+
+        return "common/writeMessage";
+    }
+
+    @GetMapping("/admin/roomView")
+    public String roomView(Model model, Room room){
+        RoomImage roomImage = sonorousRoomService.roomView(room.getId());
+        model.addAttribute("room", roomImage);
+        return "admin/roomView";
+    }
+
+    @GetMapping("/admin/roomUpdatePage")
+    public String roomUpdatePage(Model model, Room room){
+        RoomImage roomImage = sonorousRoomService.roomView(room.getId());
+        model.addAttribute("room", roomImage);
+        return "admin/roomUpdate";
+    }
+
+    @PostMapping("/admin/roomUpdate/{id}")
+    public String roomUpdate(@PathVariable("id") Integer id, Room room, RoomImage roomImage, MultipartFile file, Model model) throws Exception {
+
+        RoomImage roomTemp = sonorousRoomService.roomView(id);
+        room.setRoomName(room.getRoomName());
+        room.setRoomPrice(room.getRoomPrice());
+        room.setRoomAmount(room.getRoomAmount());
+        room.setRoomSize(room.getRoomSize());
+        room.setPeopleNum(room.getPeopleNum());
+        room.setBedType(room.getBedType());
+        roomTemp.setRoom(room);
+        System.out.print(roomTemp);
+        sonorousRoomService.update(roomTemp);
+
+        model.addAttribute("message", "글 수정이 완료되었습니다.");
+        model.addAttribute("searchUrl","/admin/roomView?Id="+id);
 
         return "common/writeMessage";
     }

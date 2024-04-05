@@ -1,0 +1,30 @@
+div #view_area{
+    margin: 50px 0 50px 0;
+}
+
+#table{
+    margin:auto;
+    text-align:center;
+}
+
+#btn {
+    float:right;
+    text-align:right;
+    padding:0;
+    margin:0;
+    display:inline;
+}
+
+.btn_blue_l {
+    float:left;
+    background:url(../../images/example/btn_bg_l.gif) 0 0 no-repeat;
+     height:20px;
+     padding:0px 0px 0px 10px;
+     margin:0px 0px 0px 0px;
+}
+
+.btn_blue_r {
+    background-position:right;
+    height:20px;
+}
+

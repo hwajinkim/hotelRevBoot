@@ -38,4 +38,16 @@ public class SonorousRoomService {
 
         sonorousRoomRepository.save(roomImage);
     }
+
+    public RoomImage roomView(Integer id) {
+        return sonorousRoomRepository.findById(id).get();
+    }
+
+    public void roomDelete(int id) {
+        sonorousRoomRepository.deleteById(id);
+    }
+
+    public void update(RoomImage roomTemp) {
+        sonorousRoomRepository.save(roomTemp);
+    }
 }

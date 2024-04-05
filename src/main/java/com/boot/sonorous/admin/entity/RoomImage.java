@@ -16,7 +16,7 @@ public class RoomImage {
     private String roomImageName;
     private String roomImagePath;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="room_id")
     private Room room;
 }
