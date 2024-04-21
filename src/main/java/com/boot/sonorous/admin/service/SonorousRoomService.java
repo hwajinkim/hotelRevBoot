@@ -40,7 +40,7 @@ public class SonorousRoomService {
     }
 
     public RoomImage roomView(Integer id) {
-        return sonorousRoomRepository.findById(id).get();
+        return sonorousRoomRepository.findById(id).orElse(null);
     }
 
     public void roomDelete(int id) {

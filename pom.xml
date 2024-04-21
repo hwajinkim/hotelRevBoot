@@ -72,6 +72,22 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.boot.sonorous.SonorousApplication</mainClass>
+							<addClasspath>true</addClasspath>
+							<addExtensions>true</addExtensions>
+							<packageName>com.boot.sonorous</packageName>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
