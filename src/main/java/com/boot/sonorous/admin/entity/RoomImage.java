@@ -16,7 +16,8 @@ public class RoomImage {
     private String roomImageName;
     private String roomImagePath;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="room_id",  updatable = false)
+    // 방이미지와 방의 N:1 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
     private Room room;
 }

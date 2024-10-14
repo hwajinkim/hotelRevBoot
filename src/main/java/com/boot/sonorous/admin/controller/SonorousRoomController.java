@@ -12,8 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,21 +32,7 @@ public class SonorousRoomController {
     private SonorousRoomService sonorousRoomService;
 
     @GetMapping("/admin/roomList")
-    public String roomList(Model model, @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
-
-        //List<RoomImage> roomList = sonorousRoomService.roomList();
-        Page<RoomImage> list = null;
-        list = sonorousRoomService.roomList(pageable);
-
-        int nowPage = list.getPageable().getPageNumber() + 1;
-        int startPage = Math.max(nowPage - 4, 1);
-        int endPage = Math.min(nowPage + 5, list.getTotalPages());
-
-        model.addAttribute("roomList", list);
-        model.addAttribute("nowPage", nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-
+    public String roomList() {
         return "admin/roomList";
     }
 
@@ -53,12 +42,19 @@ public class SonorousRoomController {
     }
 
     @PostMapping("/admin/roomInsert")
-    public String roomInsert(Room room, RoomImage roomImage, MultipartFile file, Model model) throws Exception {
+    public String roomInsert(Room room,
+                             List<MultipartFile> files,
+                             MultipartFile thumbnail,
+                             Model model) throws Exception {
 
-        roomImage.setRoom(room);
-        sonorousRoomService.insert(roomImage, file);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = "";
+        if(principal instanceof UserDetails){
+            userName = ((UserDetails) principal).getUsername();
+        }
+        sonorousRoomService.insert(room, files, thumbnail, userName);
 
-        model.addAttribute("message", "글 작성이 완료되었습니다.");
+        model.addAttribute("message", "방 등록이 완료되었습니다.");
         model.addAttribute("searchUrl","/admin/roomList");
 
         return "common/writeMessage";
@@ -66,34 +62,38 @@ public class SonorousRoomController {
 
     @GetMapping("/admin/roomView")
     public String roomView(Model model, Room room){
-        RoomImage roomImage = sonorousRoomService.roomView(room.getId());
-        model.addAttribute("room", roomImage);
+
+        model.addAttribute("roomId", room.getId());
         return "admin/roomView";
     }
 
     @GetMapping("/admin/roomUpdatePage")
     public String roomUpdatePage(Model model, Room room){
-        RoomImage roomImage = sonorousRoomService.roomView(room.getId());
-        model.addAttribute("room", roomImage);
+        Room roomDetail = sonorousRoomService.roomView(room.getId());
+        model.addAttribute("room", roomDetail);
         return "admin/roomUpdate";
     }
 
     @PostMapping("/admin/roomUpdate/{id}")
     public String roomUpdate(@PathVariable("id") Integer id, Room room, RoomImage roomImage, MultipartFile file, Model model) throws Exception {
 
-        RoomImage roomTemp = sonorousRoomService.roomView(id);
-        room.setRoomName(room.getRoomName());
-        room.setRoomPrice(room.getRoomPrice());
-        room.setRoomAmount(room.getRoomAmount());
-        room.setRoomSize(room.getRoomSize());
-        room.setPeopleNum(room.getPeopleNum());
-        room.setBedType(room.getBedType());
-        roomTemp.setRoom(room);
-        sonorousRoomService.update(roomTemp);
+        sonorousRoomService.update(id, room, roomImage);
 
-        model.addAttribute("message", "글 수정이 완료되었습니다.");
+        model.addAttribute("message", "방 수정이 완료되었습니다.");
         model.addAttribute("searchUrl","/admin/roomView?Id="+id);
 
         return "common/writeMessage";
     }
+
+    @PostMapping("/admin/roomDelete/{id}")
+    public String roomDelete(@PathVariable("id") Integer id, Model model){
+
+        sonorousRoomService.delete(id);
+
+        model.addAttribute("message", "방 삭제가 완료되었습니다.");
+        model.addAttribute("searchUrl","/admin/roomList");
+
+        return "common/writeMessage";
+    }
+
 }

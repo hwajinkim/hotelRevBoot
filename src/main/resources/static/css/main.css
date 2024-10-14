@@ -44,6 +44,12 @@ header #top_menu{
 	top:10px;
 	left:85%;
 }
+header #top_menu .do-login{
+	display:none;
+}
+header #top_menu .not-login{
+	display:none;
+}
 header #top_menu a:link{
 	text-decoration:none;
 	color:#000000;
@@ -75,6 +81,18 @@ header .dropmenu ul{
 header .dropmenu li{
 	float:left;
 	padding:0px;
+}
+
+header .dropmenu li .user-menu{
+	display:none;
+}
+
+header .dropmenu li .admin-menu-1{
+	display:none;
+}
+
+header .dropmenu li .admin-menu-2{
+	display:none;
 }
 
 header .dropmenu li a{

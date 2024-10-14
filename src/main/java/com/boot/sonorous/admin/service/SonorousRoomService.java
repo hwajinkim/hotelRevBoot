@@ -2,52 +2,90 @@ package com.boot.sonorous.admin.service;
 
 import com.boot.sonorous.admin.entity.Room;
 import com.boot.sonorous.admin.entity.RoomImage;
+import com.boot.sonorous.admin.repository.SonorousRoomImageRepository;
 import com.boot.sonorous.admin.repository.SonorousRoomRepository;
+import com.boot.sonorous.common.Util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class SonorousRoomService {
     @Autowired
     SonorousRoomRepository sonorousRoomRepository;
+    @Autowired
+    SonorousRoomImageRepository sonorousRoomImageRepository;
 
-    public Page<RoomImage> roomList(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<Room> roomList(Pageable pageable) {
         return sonorousRoomRepository.findAll(pageable);
     }
 
-    public void insert(RoomImage roomImage, MultipartFile file) throws Exception{
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+    @Transactional
+    public void insert(Room room,
+                       List<MultipartFile> files,
+                       MultipartFile thumbnail,
+                       String userName) throws Exception{
+        List<RoomImage> saveImages = new ArrayList<>();
 
-        UUID uuid = UUID.randomUUID();
+        // 1. 방이미지 파일 업로드
+        for(MultipartFile file : files){
+            if(file.getName() != "") {
+                String fileName = FileUtil.fileUpload(file);
 
-        String fileName = uuid + "_" + file.getOriginalFilename();
-
-        File saveFile = new File(projectPath, fileName);
-
-        file.transferTo(saveFile);
-
-        roomImage.setRoomImageName(fileName);
-        roomImage.setRoomImagePath("/files/" + fileName);
-
-        sonorousRoomRepository.save(roomImage);
+                // 2. 이미지 Path RoomImage 객체로 변환 후 Room에 추가
+                RoomImage roomImage = new RoomImage();
+                roomImage.setRoom(room);
+                roomImage.setRoomImageName(fileName);
+                roomImage.setRoomImagePath("/files/" + fileName);
+                saveImages.add(roomImage);
+            }
+        }
+        String thumbnailName = FileUtil.thumbnailUpload(thumbnail);
+        room.setRoomThumbnailPath("/files/thumbnails/" + thumbnailName);
+        room.setImages(saveImages);
+        room.setInsId(userName);
+        sonorousRoomRepository.save(room);
     }
 
-    public RoomImage roomView(Integer id) {
-        return sonorousRoomRepository.findById(id).orElse(null);
+    @Transactional(readOnly = true)
+    public Room roomView(Integer id) {
+        return sonorousRoomRepository.findById(id)
+            .orElseThrow(()->{
+               return new IllegalArgumentException("방 상세보기 실패 : 아이디를 찾을 수 없습니다.");
+            });
     }
 
-    public void roomDelete(int id) {
+    @Transactional
+    public void update(int id, Room room, RoomImage roomImage) {
+        Room roomInfo = sonorousRoomRepository.findById(id)
+            .orElseThrow(()->{
+                return new IllegalArgumentException("방 찾기 실패 : 아이디를 찾을 수 없음.");
+            });
+
+        roomInfo.setRoomName(room.getRoomName());
+        roomInfo.setRoomSize(room.getRoomSize());
+        roomInfo.setBedType(room.getBedType());
+        roomInfo.setRoomPrice(room.getRoomPrice());
+        roomInfo.setRoomAmount(room.getRoomAmount());
+        roomInfo.setPeopleNum(room.getPeopleNum());
+        roomInfo.setRoomSpec(room.getRoomSpec());
+    }
+
+    @Transactional
+    public void delete(int id) {
+        if(!sonorousRoomRepository.existsById(id)){
+            throw new RuntimeException("방 삭제 실패 : 아이디를 찾을 수 없음.");
+        }
         sonorousRoomRepository.deleteById(id);
-    }
-
-    public void update(RoomImage roomTemp) {
-        sonorousRoomRepository.save(roomTemp);
     }
 }

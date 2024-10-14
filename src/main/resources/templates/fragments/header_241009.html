@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!--headerFragment 선언-->
+<div th:fragment="headerFragment">
+<header>
+        <a th:href="@{/main}"><img id="logo" th:src="@{/images/logo.png}"/></a>
+        <nav id="top_menu">
+                <div class="do-login">
+                        <a th:href="@{#}" onclick="logout(); return false;">로그아웃</a> | <a th:href="@{/common/memberInfo}">마이페이지</a>
+                </div>
+                <div class="not-login">
+                        <a th:href="@{/common/loginForm}">로그인</a> | <a th:href="@{/common/addMember}">회원가입</a>
+                </div>
+        </nav>
+        <div class="dropmenu">
+                <ul>
+                        <!--기본 메뉴-->
+                        <li><a th:href="@{#}">소개</a></li>
+                        <li><a th:href="@{#}">공지사항</a></li>
+                        <!--사용자 메뉴-->
+                        <li><a th:href="@{/rsvList}" id="current" class="user-menu">예약</a></li>
+                        <!--관리자 메뉴-->
+                        <li><a th:href="@{/admin/roomList}" class="admin-menu-1">객실관리</a></li>
+                        <li><a th:href="@{/admin/reservManageList}" class="admin-menu-2">예약관리</a></li>
+                </ul>
+        </div>
+</header>
+</div>
+</html>

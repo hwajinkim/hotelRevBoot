@@ -34,11 +34,12 @@ public class SonorousLoginController {
 
         String viewPage = "common/message";
 
-        String mId = member.getMId();
-        Member loginMember = sonorousMemberService.getLogin(mId);
-        if(loginMember != null && member.getMPw().equals(loginMember.getMPw())){
+        String username = member.getUsername();
+        String password = member.getPassword();
+        Member loginMember = sonorousMemberService.getLogin(username, password);
+        if(loginMember != null){
             session.setAttribute("loginMember", loginMember);
-            message = member.getMId()+" 님 환영합니다.";
+            message = member.getUsername()+" 님 환영합니다.";
             isError = false;
         } else {
             message = "로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.";
