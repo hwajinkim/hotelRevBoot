@@ -14,6 +14,8 @@ $(document).ready(function(){
         success: function(response){
 
             var room = response.data;
+            var roomImages = response.roomImages;
+            showRoomImagesView(roomImages);
             showRoomView(room);
             showRoomViewBtn(room);
         },
@@ -22,6 +24,26 @@ $(document).ready(function(){
         }
     });
 });
+
+function showRoomImagesView(roomImages){
+    console.log(roomImages);
+    var indicators = $('.carousel-indicators');
+    var inner = $('.carousel-inner');
+
+    roomImages.forEach(function(item, index) {
+        var imagePath = item.roomImagePath;
+
+        indicators.append(`
+            <li data-target="#demo" data-slide-to="${index}" ${index === 0 ? 'class="active"' : ''}></li>
+        `);
+
+        inner.append(`
+            <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                <img src="${imagePath}" alt="Room Image ${index + 1}" width="1100" height="500">
+            </div>
+        `);
+    });
+}
 
 function showRoomView(room){
     $('#roomName').text(room.roomName);       // 객실명

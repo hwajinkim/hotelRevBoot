@@ -1,5 +1,6 @@
 package com.boot.sonorous.admin.dto;
 
+import com.boot.sonorous.admin.entity.RoomImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,5 @@ public class ResponseDto<T> {
     int status;
     Page<T> list;
     T data;
+    List<RoomImage> roomImages;
 }

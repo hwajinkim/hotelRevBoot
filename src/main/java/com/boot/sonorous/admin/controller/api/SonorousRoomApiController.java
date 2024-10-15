@@ -59,6 +59,7 @@ public class SonorousRoomApiController {
         ResponseDto<Room> dto = new ResponseDto<Room>();
         dto.setStatus(HttpStatus.OK.value());
         dto.setData(roomDetail);
+        dto.setRoomImages(roomDetail.getImages());
 
         return ResponseEntity.ok(dto);
     }
