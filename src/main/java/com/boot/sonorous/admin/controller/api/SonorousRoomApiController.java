@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,13 +27,6 @@ public class SonorousRoomApiController {
 
     @GetMapping("/api/admin/roomList")
     public ResponseEntity<ResponseDto<Room>> roomList(@PageableDefault(page = 0, size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userName = "";
-        if(principal instanceof UserDetails){
-            userName = ((UserDetails) principal).getUsername();
-        }
-        System.out.println("userName"+userName);
 
         Page<Room> list = sonorousRoomService.roomList(pageable);
 
@@ -69,4 +63,36 @@ public class SonorousRoomApiController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/api/admin/roomUpdatePage/{roomId}")
+    public ResponseEntity<ResponseDto<Room>> roomUpdatePage(@PathVariable Integer roomId){
+        Room roomDetail = sonorousRoomService.roomView(roomId);
+
+        ResponseDto<Room> dto = new ResponseDto<Room>();
+        dto.setStatus(HttpStatus.OK.value());
+        dto.setData(roomDetail);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/api/admin/roomUpdate/{roomId}")
+    public ResponseEntity<Integer> roomUpdate(@PathVariable Integer roomId, Room room) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = "";
+        if(principal instanceof UserDetails){
+            userName = ((UserDetails) principal).getUsername();
+        }
+
+        sonorousRoomService.update(roomId, room, userName);
+
+        return ResponseEntity.ok(1);
+    }
+
+    @DeleteMapping("/api/admin/roomDelete/{roomId}")
+    public ResponseEntity<Integer> roomDelete(@PathVariable Integer roomId){
+
+        sonorousRoomService.delete(roomId);
+
+        return ResponseEntity.ok(1);
+    }
 }

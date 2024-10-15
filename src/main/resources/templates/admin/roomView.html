@@ -17,8 +17,8 @@
     <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
     <script th:src="@{/js/header.js}"></script>
     <script th:src="@{/js/common/login.js}"></script>
-    <script th:src="@{/js/admin/update.js}"></script>
     <script th:src="@{/js/admin/room/authView.js}"></script>
+    <script th:src="@{/js/admin/room/authDelete.js}"></script>
 </th:block>
 
 <!-- Content -->
@@ -89,12 +89,7 @@
                 </tr>
             </tbody>
         </table>
-        <div style="text-align:center;">
-            <button type="button" class="btn btn-secondary"  onclick="location.href='/admin/roomList';">목록</button>
-            <!--<button type="button" class="btn btn-warning" th:onclick="location.href='/admin/roomUpdatePage?Id=[[${room.Id}]]';" >수정</button>
-            <form th:action="@{/admin/roomDelete/{id}(id=${room.id})}" method="post" style="display:inline;">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('방을 삭제하길 원하십니까?');">삭제</button>
-            </form>-->
+        <div id="roomViewBtn" style="text-align:center;">
         </div>
         <br/>
     </div>

@@ -69,12 +69,12 @@ public class SonorousRoomController {
 
     @GetMapping("/admin/roomUpdatePage")
     public String roomUpdatePage(Model model, Room room){
-        Room roomDetail = sonorousRoomService.roomView(room.getId());
-        model.addAttribute("room", roomDetail);
+
+        model.addAttribute("roomId", room.getId());
         return "admin/roomUpdate";
     }
 
-    @PostMapping("/admin/roomUpdate/{id}")
+    /*@PostMapping("/admin/roomUpdate/{id}")
     public String roomUpdate(@PathVariable("id") Integer id, Room room, RoomImage roomImage, MultipartFile file, Model model) throws Exception {
 
         sonorousRoomService.update(id, room, roomImage);
@@ -83,9 +83,9 @@ public class SonorousRoomController {
         model.addAttribute("searchUrl","/admin/roomView?Id="+id);
 
         return "common/writeMessage";
-    }
+    }*/
 
-    @PostMapping("/admin/roomDelete/{id}")
+    /*@PostMapping("/admin/roomDelete/{id}")
     public String roomDelete(@PathVariable("id") Integer id, Model model){
 
         sonorousRoomService.delete(id);
@@ -94,6 +94,6 @@ public class SonorousRoomController {
         model.addAttribute("searchUrl","/admin/roomList");
 
         return "common/writeMessage";
-    }
+    }*/
 
 }

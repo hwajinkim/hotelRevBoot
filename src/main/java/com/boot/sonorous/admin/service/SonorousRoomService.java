@@ -66,7 +66,7 @@ public class SonorousRoomService {
     }
 
     @Transactional
-    public void update(int id, Room room, RoomImage roomImage) {
+    public void update(int id, Room room, String userName) {
         Room roomInfo = sonorousRoomRepository.findById(id)
             .orElseThrow(()->{
                 return new IllegalArgumentException("방 찾기 실패 : 아이디를 찾을 수 없음.");
@@ -79,6 +79,7 @@ public class SonorousRoomService {
         roomInfo.setRoomAmount(room.getRoomAmount());
         roomInfo.setPeopleNum(room.getPeopleNum());
         roomInfo.setRoomSpec(room.getRoomSpec());
+        roomInfo.setModId(userName);
     }
 
     @Transactional

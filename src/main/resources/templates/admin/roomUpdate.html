@@ -17,44 +17,44 @@
     <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
     <script th:src="@{/js/header.js}"></script>
     <script th:src="@{/js/common/login.js}"></script>
-    <script th:src="@{/js/admin/update.js}"></script>
+    <script th:src="@{/js/admin/room/authUpdateForm.js}"></script>
+    <script th:src="@{/js/admin/room/authUpdate.js}"></script>
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
+    <div id="roomId" th:text="${roomId}"></div>
     <div class="container" style="margin-top:200px">
-        <form th:action="@{/admin/roomUpdate/{id}(id = ${room.room.Id})}" name="updateForm" method="post" enctype="multipart/form-data">
+        <form name="updateForm" method="post" enctype="multipart/form-data">
             <table class="table table-borderless">
                 <tbody>
                 <tr>
                     <th><span id="vali">*</span>객실명</th>
-                    <td colspan="3"><input type="text" id="roomName" name="roomName" th:value="${room.room.roomName}"/></td>
+                    <td colspan="3"><input type="text" id="roomName" name="roomName"/></td>
                 </tr>
                 <tr>
                     <th><span id="vali">*</span>객실요금</th>
-                    <td><input type="text" id="roomPrice" name="roomPrice" th:value="${room.room.roomPrice}"/>&nbsp;원</td>
+                    <td><input type="text" id="roomPrice" name="roomPrice"/>&nbsp;원</td>
                     <th><span id="vali">*</span>객실수</th>
-                    <td><input type="number" id="roomAmount" name="roomAmount" th:value="${room.room.roomAmount}"/></td>
+                    <td><input type="number" id="roomAmount" name="roomAmount"/></td>
                 </tr>
                 <tr>
                     <th><span id="vali">*</span>객실크기</th>
-                    <td><input type="number" id="roomSize" name="roomSize" step="0.01" th:value="${room.room.roomSize}"/>&nbsp;㎡</td>
+                    <td><input type="number" id="roomSize" name="roomSize" step="0.01"/>&nbsp;㎡</td>
                     <th><span id="vali">*</span>최대인원수</th>
-                    <td><input type="number" id="peopleNum" name="peopleNum" th:value="${room.room.peopleNum}"/></td>
+                    <td><input type="number" id="peopleNum" name="peopleNum"/></td>
                 <tr>
                     <th><span id="vali">*</span>침대타입</th>
-                    <td colspan="3"><input type="text" id="bedType" name="bedType" th:value="${room.room.bedType}"/></td>
+                    <td colspan="3"><input type="text" id="bedType" name="bedType"/></td>
                 </tr>
                 <tr>
                     <th>특이사항</th>
-                    <td colspan="3"><textarea id="roomSpec" name="roomSpec" th:text="${room.room.roomSpec}"></textarea></td>
+                    <td colspan="3"><textarea id="roomSpec" name="roomSpec"></textarea></td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <td colspan="3">
-                        <div>
-                            <th:block th:text="${room.roomImageName}" />
-                        </div>
+                        <input type="text" id="roomThumbnailPath" name="roomThumbnailPath"/></td>
                     </td>
                 </tr>
                 </tbody>
