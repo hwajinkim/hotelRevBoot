@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class SonorousMemberService {
@@ -20,6 +22,12 @@ public class SonorousMemberService {
     SonorousMemberRepository sonorousMemberRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
+
+    public Optional<Member> getMember(String username){
+        Optional<Member> member = sonorousMemberRepository.findByUsername(username);
+        return member;
+    }
+
 
     // 세션 기반 인증
     public Member getLogin(String username, String password){

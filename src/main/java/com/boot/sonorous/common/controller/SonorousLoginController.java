@@ -12,12 +12,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class SonorousLoginController {
 
     @Autowired
     private SonorousMemberService sonorousMemberService;
+
+    @GetMapping("/common/joinForm")
+    public String joinForm(){
+        return "common/joinForm";
+    }
+
+    @PostMapping("/common/memberExists")
+    public Map<String, Object> memberExists(@ModelAttribute Member member){
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+        sonorousMemberService.getMember(member.getUsername());
+        return resultMap;
+    }
 
     @GetMapping("/common/loginForm")
     public String loginForm(){

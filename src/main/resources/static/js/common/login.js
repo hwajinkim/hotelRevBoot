@@ -1,18 +1,3 @@
-/*
-function login(){
-	var frm = document.loginForm;
-
-	if(frm.username.value == ""){
-		alert("아이디를 입력하세요.");
-		return false;
-	}
-
-	if(frm.password.value == ""){
-		alert("비밀번호를 입력하세요.");
-		return false;
-	}
-	frm.submit();
-}*/
 function login(){
     let token = '';
 
