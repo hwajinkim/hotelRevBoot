@@ -1,6 +1,6 @@
 package com.boot.sonorous.common.controller;
+import com.boot.sonorous.common.dto.SignInDto;
 import com.boot.sonorous.common.entity.JwtToken;
-import com.boot.sonorous.common.entity.SignInDTO;
 import com.boot.sonorous.common.security.JwtAuthenticationFilter;
 import com.boot.sonorous.common.security.JwtTokenProvider;
 import com.boot.sonorous.common.service.SonorousMemberService;
@@ -18,10 +18,10 @@ public class SonorousAuthController {
     SonorousMemberService sonorousMemberService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody SignInDTO signInDTO){
+    public ResponseEntity<?> login(@RequestBody SignInDto signInDto){
         try {
-            String username = signInDTO.getUsername();
-            String password = signInDTO.getPassword();
+            String username = signInDto.getUsername();
+            String password = signInDto.getPassword();
             JwtToken jwtToken = sonorousMemberService.signIn(username, password);
             return ResponseEntity.ok(jwtToken);
         } catch(AuthenticationException e) {

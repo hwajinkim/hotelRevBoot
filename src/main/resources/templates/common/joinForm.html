@@ -20,8 +20,8 @@
 </th:block>
 
 <div layout:fragment="content">
-    <div class="container" style="margin-top:200px;">
-        <form name="joinForm" id="joinForm">
+    <div class="container" style="text-align:center; margin-top:200px;">
+        <form name="joinForm" id="joinForm" >
             <input type="hidden" name="phone" id="phone"/>
             <input type="hidden" name="email" id="email"/>
             <table class="table table-borderless">
@@ -30,11 +30,77 @@
                 <td><span id="vali">*</span>사용자명</td>
                 <td><input type="text" name="username" size="20"/>
                     <button type="button" id="btn_idCheck">중복확인</button>
+                    <label id="result_idCheck"></label>
+                </td>
+            </tr>
+            <tr>
+                <td><span id="vali">*</span>비밀번호</td>
+                <td><input type="password" name="mPw" size="20" /></td>
+            </tr>
+            <tr>
+                <td><span id="vali">*</span>비밀번호 확인</td>
+                <td><input type="password" name="mPw_confirm" size="20" autocomplete="new-password"/></td>
+            </tr>
+            <tr>
+                <td>국가</td>
+                <td><input type="text" name="country" size="20"/></td>
+            </tr>
+            <tr>
+                <td>영문 이름</td>
+                <td><input type="text" name="eName" size="20"/></td>
+            </tr>
+            <tr>
+                <td>국문 이름</td>
+                <td><input type="text" name="kName" size="20"/></td>
+            </tr>
+            <tr>
+                <td>생년월일</td>
+                <td><input type="text" name="birth" size="20"/></td>
+            </tr>
+            <tr>
+                <td>연락처</td>
+                <td>
+                    <select name="phone01" id="phone01">
+                        <option value="" selected="selected">선택</option>
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                    </select>
+                    - <input type="text" name="phone02" id="phone02" size="20"/>
+                    - <input type="text" name="phone03" id="phone03" size="20"/>
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <input type="text" name="email01" id="email01" size="20"/>
+                    @
+                    <select name="email02" id="email02">
+                        <option value="" selected="selected">직접입력</option>
+                        <option value="naver.com" >naver.com</option>
+                        <option value="hanmail.net">hanmail.net</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="nate.com">nate.com</option>
+                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                        <option value="empas.com">empas.com</option>
+                        <option value="dreamwiz.com">dreamwiz.com</option>
+                        <option value="freechal.com">freechal.com</option>
+                        <option value="lycos.co.kr">lycos.co.kr</option>
+                        <option value="korea.com">korea.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="hanmir.com">hanmir.com</option>
+                        <option value="paran.com">paran.com</option>
+                    </select>
                 </td>
             </tr>
             </tbody>
             </table>
-            <input type="button" id="btn-login" class="btn btn-primary" onclick="login();" value="로그인"/>
+            <div>
+                <input type="button" id="btn-join" class="btn btn-primary" onclick="join();" value="회원가입"/>
+            </div>
         </form>
     </div>
 </div>

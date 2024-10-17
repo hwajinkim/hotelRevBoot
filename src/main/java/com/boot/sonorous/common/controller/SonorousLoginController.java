@@ -1,19 +1,25 @@
 package com.boot.sonorous.common.controller;
 
+import com.boot.sonorous.admin.dto.ResponseDto;
+import com.boot.sonorous.admin.entity.Room;
 import com.boot.sonorous.common.entity.Member;
 import com.boot.sonorous.common.service.SonorousMemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class SonorousLoginController {
@@ -27,13 +33,21 @@ public class SonorousLoginController {
     }
 
     @PostMapping("/common/memberExists")
-    public Map<String, Object> memberExists(@ModelAttribute Member member){
+    public ResponseEntity<ResponseDto<String>> memberExists(@ModelAttribute Member member){
 
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Optional<Member> memberDetail = sonorousMemberService.getMember(member.getUsername());
 
-        sonorousMemberService.getMember(member.getUsername());
-        return resultMap;
+        ResponseDto<String> dto = new ResponseDto<>();
+        dto.setStatus(HttpStatus.OK.value());
+        if(memberDetail.isEmpty()){
+            dto.setData("true");
+        }else{
+            dto.setData("false");
+        }
+        return ResponseEntity.ok(dto);
     }
+
+
 
     @GetMapping("/common/loginForm")
     public String loginForm(){
