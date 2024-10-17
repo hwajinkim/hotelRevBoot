@@ -7,17 +7,19 @@ import com.boot.sonorous.common.service.SonorousMemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,21 +35,25 @@ public class SonorousLoginController {
     }
 
     @PostMapping("/common/memberExists")
-    public ResponseEntity<ResponseDto<String>> memberExists(@ModelAttribute Member member){
+    public ResponseEntity<Map<String, Object>> memberExists(@RequestBody Map<String, String> params){
 
-        Optional<Member> memberDetail = sonorousMemberService.getMember(member.getUsername());
+        String username = params.get("username");
 
-        ResponseDto<String> dto = new ResponseDto<>();
-        dto.setStatus(HttpStatus.OK.value());
-        if(memberDetail.isEmpty()){
-            dto.setData("true");
-        }else{
-            dto.setData("false");
-        }
-        return ResponseEntity.ok(dto);
+        Optional<Member> memberDetail = sonorousMemberService.getMember(username);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("data", memberDetail.isEmpty() ? "true" : "false");
+        return ResponseEntity.ok(map);
     }
 
+    @PostMapping("/common/join")
+    public ResponseEntity<Integer> join(Member member) {
 
+        sonorousMemberService.insert(member);
+
+        return ResponseEntity.ok(1);
+    }
 
     @GetMapping("/common/loginForm")
     public String loginForm(){

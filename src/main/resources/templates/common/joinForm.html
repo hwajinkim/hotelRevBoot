@@ -35,11 +35,20 @@
             </tr>
             <tr>
                 <td><span id="vali">*</span>비밀번호</td>
-                <td><input type="password" name="mPw" size="20" /></td>
+                <td><input type="password" name="password" size="20" /></td>
             </tr>
             <tr>
                 <td><span id="vali">*</span>비밀번호 확인</td>
-                <td><input type="password" name="mPw_confirm" size="20" autocomplete="new-password"/></td>
+                <td><input type="password" name="password_confirm" size="20" autocomplete="new-password"/></td>
+            </tr>
+            <tr>
+                <td><span id="vali">*</span>사용권한</td>
+                <td>
+                    <select name="role" id="role">
+                        <option value="USER" selected="selected">사용자</option>
+                        <option value="ADMIN">관리자</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>국가</td>

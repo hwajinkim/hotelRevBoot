@@ -17,10 +17,11 @@ function fn_idCheck(){
     $.ajax({
         type : 'post',
         url : '/common/memberExists',
-        data: params,
+        data: JSON.stringify(params),
         dataType : 'JSON',
         contentType: "application/json",
         success: function(res){
+        console.log(res.data);
             if(res.data == 'true'){
                 $('#result_idCheck').text('사용 가능한 사용자명입니다.');
             }else{
@@ -43,17 +44,17 @@ function join(){
         frm.username.focus();
         return false;
     }
-    if(frm.mPw.value == ""){
+    if(frm.password.value == ""){
         alert("비밀번호를 입력하세요.");
-        frm.mPw.focus();
+        frm.password.focus();
         return false;
     }
-    if(frm.mPw_confirm.value == ""){
+    if(frm.password_confirm.value == ""){
         alert("비밀번호 확인을 입력해주세요.");
-        frm.mPw_confirm.focus();
+        frm.password_confirm.focus();
         return false;
     }else{
-        if(frm.mPw.value!=frm.mPw_confirm.value){
+        if(frm.password.value!=frm.password_confirm.value){
             alert("비밀번호를 다시 확인해주세요.");
             return false;
         }
@@ -108,6 +109,21 @@ function join(){
     frm.email.value = frm.email01.value + '@' + frm.email02.value;
 
     var formData = new FormData(document.forms['joinForm']);
+
+    $.ajax({
+        url: '/common/join',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            alert('회원가입이 완료되었습니다.');
+            window.location.href = '/main';
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('API 요청에 실패했습니다.: ' + textStatus);
+        }
+    });
 
 
 
