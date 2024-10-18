@@ -1,10 +1,26 @@
+
+var duplicateCheck = false;
+
 $(function(){
     $("#btn_idCheck").click(function(){
         fn_idCheck();
     });
+
+    $("#email02").change(function() {
+        var selectVal = $(this).val();
+        console.log(selectVal);
+        if (selectVal === "") {
+             $("#customEmail").show();
+        } else {
+             $("#customEmail").hide();
+        }
+    });
+
+
 });
 
 function fn_idCheck(){
+
     var frm = document.joinForm;
 
     if(frm.username.value==""){
@@ -24,8 +40,10 @@ function fn_idCheck(){
         console.log(res.data);
             if(res.data == 'true'){
                 $('#result_idCheck').text('사용 가능한 사용자명입니다.');
+                duplicateCheck = true;
             }else{
                 $('#result_idCheck').text('이미 가입된 사용자입니다.');
+                duplicateCheck = false;
             }
         },
         error: function (request, status, error) {
@@ -37,6 +55,8 @@ function fn_idCheck(){
 }
 
 function join(){
+    event.preventDefault();
+
     var frm = document.joinForm;
 
     if(frm.username.value == ""){
@@ -59,63 +79,39 @@ function join(){
             return false;
         }
     }
-    if(frm.country.value == ""){
-        alert("국가를 입력해주세요.");
-        frm.country.focus();
-        return false;
-    }
-    if(frm.eName.value == ""){
-        alert("영문 이름을 입력해주세요.");
-        frm.eName.focus();
-        return false;
-    }
-    if(frm.kName.value == ""){
-        alert("국문 이름을 입력해주세요.");
-        frm.kName.focus();
-        return false;
-    }
-    if(frm.birth.value == ""){
-        alert("생년월일을 입력해주세요.");
-        frm.birth.focus();
-        return false;
-    }
-    if(frm.phone01.value == ""){
-        alert("전화번호 첫째 자리를 입력해주세요.");
-        frm.phone01.focus();
-        return false;
-    }
-    if(frm.phone02.value == ""){
-        alert("전화번호 둘째 자리를 입력해주세요.");
-        frm.phone02.focus();
-        return false;
-    }
-    if(frm.phone03.value == ""){
-        alert("전화번호 셋째 자리를 입력해주세요.");
-        frm.phone03.focus();
-        return false;
-    }
-    if(frm.email01.value == ""){
-        alert("이메일 첫째 자리를 입력해주세요.");
-        frm.email01.focus();
-        return false;
-    }
-    if(frm.email02.value == ""){
-        alert("이메일 둘째 자리를 입력해주세요.");
-        frm.email02.focus();
+
+    if(duplicateCheck == false){
+        alert("중복확인을 해주세요");
+        frm.username.focus();
         return false;
     }
 
     frm.phone.value = frm.phone01.value + '-' + frm.phone02.value + '-' + frm.phone03.value;
     frm.email.value = frm.email01.value + '@' + frm.email02.value;
 
-    var formData = new FormData(document.forms['joinForm']);
-    console.log(formData);
+    const username = $('#username').val();
+    const password = $('#password').val();
+    const roles = $('#roles').val();
+    const eName = $('#eName').val();
+    const birth = $('#birth').val();
+    const phone = $('#phone').val();
+    const email = $('#email').val();
+
+    const data = {
+        "username" : username,
+        "password" : password,
+        "roles" : [roles],
+        "eName" : eName,
+        "birth" : birth,
+        "phone" : phone,
+        "email" : email
+    }
 
     $.ajax({
         url: '/common/join',
         type: 'POST',
-        data: formData,
-        contentType: false,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
         processData: false,
         success: function(response) {
             alert('회원가입이 완료되었습니다.');

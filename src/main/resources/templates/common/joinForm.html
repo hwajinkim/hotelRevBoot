@@ -27,73 +27,85 @@
             <table class="table table-borderless">
             <tbody>
             <tr>
-                <td><span id="vali">*</span>사용자명</td>
-                <td><input type="text" name="username" size="20"/>
-                    <button type="button" id="btn_idCheck">중복확인</button>
-                    <label id="result_idCheck"></label>
+                <td>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="사용자명을 입력하세요." />
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-outline-primary" id="btn_idCheck">중복확인</button>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label id="result_idCheck"></label>
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td><span id="vali">*</span>비밀번호</td>
-                <td><input type="password" name="password" size="20" /></td>
+                <td><input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력하세요."/></td>
             </tr>
             <tr>
-                <td><span id="vali">*</span>비밀번호 확인</td>
-                <td><input type="password" name="password_confirm" size="20" autocomplete="new-password"/></td>
+                <td><input type="password" class="form-control" name="password_confirm" id="password_confirm" size="20" autocomplete="new-password" placeholder="비밀번호 재입력하세요."/></td>
             </tr>
             <tr>
-                <td>국가</td>
-                <td><input type="text" name="country" size="20"/></td>
-            </tr>
-            <tr>
-                <td>영문 이름</td>
-                <td><input type="text" name="eName" size="20"/></td>
-            </tr>
-            <tr>
-                <td>국문 이름</td>
-                <td><input type="text" name="kName" size="20"/></td>
-            </tr>
-            <tr>
-                <td>생년월일</td>
-                <td><input type="text" name="birth" size="20"/></td>
-            </tr>
-            <tr>
-                <td>연락처</td>
                 <td>
-                    <select name="phone01" id="phone01">
-                        <option value="" selected="selected">선택</option>
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="016">016</option>
-                        <option value="017">017</option>
-                        <option value="018">018</option>
-                        <option value="019">019</option>
-                    </select>
-                    - <input type="text" name="phone02" id="phone02" size="20"/>
-                    - <input type="text" name="phone03" id="phone03" size="20"/>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">사용권한</span>
+                        </div>
+                        <select name="roles" id="roles"  class="custom-select">
+                            <option value="USER" selected="selected">사용자</option>
+                            <option value="ADMIN">관리자</option>
+                        </select>
+                    </div>
+
                 </td>
             </tr>
             <tr>
-                <td>이메일</td>
+                <td><input type="text" class="form-control" name="country" id="country" placeholder="국가를 입력하세요."/></td>
+            </tr>
+            <tr>
+                <td><input type="text" class="form-control" name="eName" id="eName" placeholder="영문 이름을 입력하세요." /></td>
+            </tr>
+            <tr>
+                <td><input type="text" class="form-control" name="birth" id="birth" placeholder="생년월일을 입력하세요."/></td>
+            </tr>
+            <tr>
                 <td>
-                    <input type="text" name="email01" id="email01" size="20"/>
-                    @
-                    <select name="email02" id="email02">
-                        <option value="" selected="selected">직접입력</option>
-                        <option value="naver.com" >naver.com</option>
-                        <option value="hanmail.net">hanmail.net</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                        <option value="nate.com">nate.com</option>
-                        <option value="yahoo.co.kr">yahoo.co.kr</option>
-                        <option value="empas.com">empas.com</option>
-                        <option value="dreamwiz.com">dreamwiz.com</option>
-                        <option value="freechal.com">freechal.com</option>
-                        <option value="lycos.co.kr">lycos.co.kr</option>
-                        <option value="korea.com">korea.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="hanmir.com">hanmir.com</option>
-                        <option value="paran.com">paran.com</option>
-                    </select>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <select class="input-group-text" name="phone01" id="phone01">
+                                <option value="" selected="selected">선택</option>
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                <option value="019">019</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" name="phone02" id="phone02" placeholder="두 번째 전화번호를 입력하세요">
+                        <input type="text" class="form-control" name="phone03" id="phone03" placeholder="세 번째 전화번호를 입력하세요">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="email01" id="email01" size="20" placeholder="이메일을 입력하세요.">
+                        <div class="input-group-append">
+                            <select class="input-group-text" name="email02" id="email02">
+                                <option value="" selected="selected">직접입력</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="hanmail.net">hanmail.net</option>
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="hotmail.com">hotmail.com</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                <option value="empas.com">empas.com</option>
+                                <option value="dreamwiz.com">dreamwiz.com</option>
+                            </select>
+                            <input type="text" id="customEmail" placeholder="직접 입력" style="display: none;">
+                        </div>
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -102,6 +114,7 @@
                 <input type="button" id="btn-join" class="btn btn-primary" onclick="join();" value="회원가입"/>
             </div>
         </form>
+        <br/>
     </div>
 </div>
 </html>

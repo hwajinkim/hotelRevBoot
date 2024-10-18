@@ -1,5 +1,6 @@
 package com.boot.sonorous.common.service;
 
+import com.boot.sonorous.common.dto.SignUpDto;
 import com.boot.sonorous.common.entity.JwtToken;
 import com.boot.sonorous.common.entity.Member;
 import com.boot.sonorous.common.repository.SonorousMemberRepository;
@@ -52,7 +53,18 @@ public class SonorousMemberService {
     }
 
 
-    public void insert(Member member) {
+    public void insert(SignUpDto signUpDto) {
+
+        Member member = Member.builder()
+                        .username(signUpDto.getUsername())
+                        .password(signUpDto.getPassword())
+                        .roles(signUpDto.getRoles())
+                        .country(signUpDto.getCountry())
+                        .eName(signUpDto.getEName())
+                        .birth(signUpDto.getBirth())
+                        .phone(signUpDto.getPhone())
+                        .email(signUpDto.getEmail())
+                        .build();
 
         sonorousMemberRepository.save(member);
     }

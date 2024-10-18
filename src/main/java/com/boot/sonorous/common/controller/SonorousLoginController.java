@@ -2,6 +2,7 @@ package com.boot.sonorous.common.controller;
 
 import com.boot.sonorous.admin.dto.ResponseDto;
 import com.boot.sonorous.admin.entity.Room;
+import com.boot.sonorous.common.dto.SignUpDto;
 import com.boot.sonorous.common.entity.Member;
 import com.boot.sonorous.common.service.SonorousMemberService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -48,9 +49,9 @@ public class SonorousLoginController {
     }
 
     @PostMapping("/common/join")
-    public ResponseEntity<Integer> join(Member member) {
+    public ResponseEntity<Integer> join(@RequestBody SignUpDto signUpDto) {
 
-        sonorousMemberService.insert(member);
+        sonorousMemberService.insert(signUpDto);
 
         return ResponseEntity.ok(1);
     }

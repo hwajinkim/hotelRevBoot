@@ -19,5 +19,5 @@ public class SignUpDto {
     private String birth;
     private String phone;
     private String email;
-    private String role;
+    private List<String> roles;
 }
