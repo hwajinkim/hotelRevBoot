@@ -109,6 +109,7 @@ function join(){
     frm.email.value = frm.email01.value + '@' + frm.email02.value;
 
     var formData = new FormData(document.forms['joinForm']);
+    console.log(formData);
 
     $.ajax({
         url: '/common/join',

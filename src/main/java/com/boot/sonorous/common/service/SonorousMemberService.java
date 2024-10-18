@@ -54,8 +54,6 @@ public class SonorousMemberService {
 
     public void insert(Member member) {
 
-        member.get
-
         sonorousMemberRepository.save(member);
     }
 }
