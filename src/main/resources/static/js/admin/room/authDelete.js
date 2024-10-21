@@ -1,5 +1,11 @@
 function deleteRoom(roomId){
     const token = localStorage.getItem("token");
+    if(token == null){
+        alert("접근 권한이 없습니다.");
+        window.location.href="/common/loginForm";
+        return false;
+    }
+
     if (!confirm("정말로 삭제하시겠습니까?")) {
         return; // 확인 창에서 취소를 누르면 삭제 작업을 중단
     }

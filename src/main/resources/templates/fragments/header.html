@@ -35,9 +35,9 @@
                                 <li class="nav-item"><a class="nav-link" th:href="@{#}">소개</a></li>
                                 <li class="nav-item"><a class="nav-link" th:href="@{#}">공지사항</a></li>
                                 <!--사용자 메뉴-->
-                                <li class="nav-item"><a class="nav-link" th:href="@{/rsvList}" id="user-menu">예약</a></li>
+                                <li class="nav-item"><a class="nav-link" th:href="@{#}" id="user-menu">예약</a></li>
                                 <!--관리자 메뉴-->
-                                <li class="nav-item"><a class="nav-link"  href="/admin/roomList" id="admin-menu-1">객실관리</a></li>
+                                <li class="nav-item"><a class="nav-link"  th:href="@{/admin/roomList}" id="admin-menu-1">객실관리</a></li>
                                 <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservManageList}" id="admin-menu-2">예약관리</a></li>
                         </ul>
                 </div>

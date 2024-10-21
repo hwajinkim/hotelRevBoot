@@ -1,18 +1,15 @@
-package com.boot.sonorous.common.controller;
+package com.boot.sonorous.common.controller.api;
 import com.boot.sonorous.common.dto.SignInDto;
 import com.boot.sonorous.common.entity.JwtToken;
-import com.boot.sonorous.common.security.JwtAuthenticationFilter;
-import com.boot.sonorous.common.security.JwtTokenProvider;
 import com.boot.sonorous.common.service.SonorousMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-public class SonorousAuthController {
+public class SonorousLoginApiController {
 
     @Autowired
     SonorousMemberService sonorousMemberService;

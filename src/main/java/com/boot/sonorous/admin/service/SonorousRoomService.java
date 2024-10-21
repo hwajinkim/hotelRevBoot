@@ -39,7 +39,8 @@ public class SonorousRoomService {
 
         // 1. 방이미지 파일 업로드
         for(MultipartFile file : files){
-            if(file.getName() != "") {
+            String getFileName = file.getOriginalFilename();
+            if(!getFileName.equals("")) {
                 String fileName = FileUtil.fileUpload(file);
 
                 // 2. 이미지 Path RoomImage 객체로 변환 후 Room에 추가
@@ -50,8 +51,11 @@ public class SonorousRoomService {
                 saveImages.add(roomImage);
             }
         }
-        String thumbnailName = FileUtil.thumbnailUpload(thumbnail);
-        room.setRoomThumbnailPath("/files/thumbnails/" + thumbnailName);
+        String getThumbnailName = thumbnail.getOriginalFilename();
+        if(!getThumbnailName.equals("")){
+            String thumbnailName = FileUtil.thumbnailUpload(thumbnail);
+            room.setRoomThumbnailPath("/files/thumbnails/" + thumbnailName);
+        }
         room.setImages(saveImages);
         room.setInsId(userName);
         sonorousRoomRepository.save(room);

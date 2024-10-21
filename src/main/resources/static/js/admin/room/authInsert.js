@@ -2,6 +2,11 @@ function insert(){
     event.preventDefault();
 
     const token = localStorage.getItem("token");
+    if(token == null){
+        alert("접근 권한이 없습니다.");
+        window.location.href="/common/loginForm";
+        return false;
+    }
 
     var frm = document.insertForm;
 
@@ -32,6 +37,11 @@ function insert(){
 
     if(frm.bedType.value == ""){
         alert("침대타입을 입력하세요.");
+        return false;
+    }
+
+    if(frm.thumbnail.value == ""){
+        alert("썸네일 이미지를 선택하세요.");
         return false;
     }
 

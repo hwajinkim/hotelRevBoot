@@ -15,8 +15,6 @@ $(function(){
              $("#customEmail").hide();
         }
     });
-
-
 });
 
 function fn_idCheck(){
@@ -87,12 +85,18 @@ function join(){
     }
 
     frm.phone.value = frm.phone01.value + '-' + frm.phone02.value + '-' + frm.phone03.value;
+
+    if(frm.email02.value == ''){
+        frm.email02.value = frm.customEmail.value;
+        console.log(frm.email02.value);
+    }
     frm.email.value = frm.email01.value + '@' + frm.email02.value;
 
     const username = $('#username').val();
     const password = $('#password').val();
     const roles = $('#roles').val();
-    const eName = $('#eName').val();
+    const country = $('#country').val();
+    const ename = $('#ename').val();
     const birth = $('#birth').val();
     const phone = $('#phone').val();
     const email = $('#email').val();
@@ -101,7 +105,8 @@ function join(){
         "username" : username,
         "password" : password,
         "roles" : [roles],
-        "eName" : eName,
+        "country" : country,
+        "ename" : ename,
         "birth" : birth,
         "phone" : phone,
         "email" : email
@@ -121,7 +126,4 @@ function join(){
             alert('API 요청에 실패했습니다.: ' + textStatus);
         }
     });
-
-
-
 }

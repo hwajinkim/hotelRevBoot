@@ -33,16 +33,6 @@
             </tr>
         </thead>
         <tbody>
-            <!--<tr th:each="room : ${roomList}">
-                <td th:text="${room.Id}"></td>
-                <td th:if="${room.roomThumbnailPath != null}">
-                    <a th:href="'/admin/roomView?Id=' + ${room.Id}">
-                        <img style="width: 150px;height:100px" th:src="${room.roomThumbnailPath}"/>
-                    </a>
-                </td>
-                <td><a th:href="'/admin/roomView?Id=' + ${room.Id}" th:text="${room.roomName}"></a></td>
-                <td th:text="${#strings.substring(room.createdDate, 0, 10)}"></td>
-            </tr>-->
         </tbody>
     </table>
     <div>
@@ -50,10 +40,6 @@
     </div>
     <div>
         <ul class="pagination justify-content-center" id="pagination">
-            <!--<li th:if="${roomList.first}" class="page-item disabled"><a class="page-link" th:href="'?page=' + ${roomList.number-1}">Previous</a></li>
-            <li th:if="!${roomList.first}" class="page-item"><a class="page-link" th:href="'?page=' + ${roomList.number-1}">Previous</a></li>
-            <li th:if="${roomList.last}" class="page-item disabled"><a class="page-link" th:href="'?page=' + ${roomList.number+1}">Next</a></li>
-            <li th:if="!${roomList.last}" class="page-item"><a class="page-link" th:href="'?page=' + ${roomList.number+1}">Next</a></li>-->
         </ul>
     </div>
 </div>

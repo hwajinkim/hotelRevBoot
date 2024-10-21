@@ -1,5 +1,10 @@
 $(document).ready(function(){
     const token = localStorage.getItem("token");
+    if(token == null){
+        alert("접근 권한이 없습니다.");
+        window.location.href="/common/loginForm";
+        return false;
+    }
 
     const roomId = $('#roomId').text();
 

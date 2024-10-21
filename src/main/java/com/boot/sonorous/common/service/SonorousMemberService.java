@@ -5,13 +5,16 @@ import com.boot.sonorous.common.entity.JwtToken;
 import com.boot.sonorous.common.entity.Member;
 import com.boot.sonorous.common.repository.SonorousMemberRepository;
 import com.boot.sonorous.common.security.JwtTokenProvider;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,24 +27,28 @@ public class SonorousMemberService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    @Transactional(readOnly = true)
     public Optional<Member> getMember(String username){
         Optional<Member> member = sonorousMemberRepository.findByUsername(username);
-        return member;
-    }
-
-
-    // 세션 기반 인증
-    public Member getLogin(String username, String password){
-        Member member = sonorousMemberRepository.findByUsernameAndPassword(username, password);
         return member;
     }
 
     // 토큰 기반 인증
     @Transactional
     public JwtToken signIn(String username, String password){
+
+        Member member = sonorousMemberRepository.findByUsername(username)
+                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+
+        if(!encoder.matches(password, member.getPassword())){
+            throw new BadCredentialsException("Invalid password");
+        }
         // 1. username + password 를 기반으로 Authentication 겍체 생성
         UsernamePasswordAuthenticationToken authenticationToken
-                = new UsernamePasswordAuthenticationToken(username, password);
+                = new UsernamePasswordAuthenticationToken(username, member.getPassword());
 
         // 2. 실제 검증, authenticate() 메서드를 통해 요청된 Member에 대한 검증 진행
         Authentication authentication
@@ -52,15 +59,19 @@ public class SonorousMemberService {
         return  jwtToken;
     }
 
-
+    @Transactional
     public void insert(SignUpDto signUpDto) {
+
+        String rawPassword = signUpDto.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        signUpDto.setPassword(encPassword);
 
         Member member = Member.builder()
                         .username(signUpDto.getUsername())
                         .password(signUpDto.getPassword())
                         .roles(signUpDto.getRoles())
                         .country(signUpDto.getCountry())
-                        .eName(signUpDto.getEName())
+                        .eName(signUpDto.getEname())
                         .birth(signUpDto.getBirth())
                         .phone(signUpDto.getPhone())
                         .email(signUpDto.getEmail())

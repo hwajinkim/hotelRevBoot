@@ -34,7 +34,7 @@
                             <button type="button" class="btn btn-outline-primary" id="btn_idCheck">중복확인</button>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
+                    <div>
                         <label id="result_idCheck"></label>
                     </div>
                 </td>
@@ -51,9 +51,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">사용권한</span>
                         </div>
-                        <select name="roles" id="roles"  class="custom-select">
-                            <option value="USER" selected="selected">사용자</option>
-                            <option value="ADMIN">관리자</option>
+                        <select name="roles" id="roles" class="custom-select">
+                            <option value="ADMIN" selected="selected">관리자</option>
+                            <option value="USER" >사용자</option>
                         </select>
                     </div>
 
@@ -63,7 +63,7 @@
                 <td><input type="text" class="form-control" name="country" id="country" placeholder="국가를 입력하세요."/></td>
             </tr>
             <tr>
-                <td><input type="text" class="form-control" name="eName" id="eName" placeholder="영문 이름을 입력하세요." /></td>
+                <td><input type="text" class="form-control" name="ename" id="ename" placeholder="영문 이름을 입력하세요."/></td>
             </tr>
             <tr>
                 <td><input type="text" class="form-control" name="birth" id="birth" placeholder="생년월일을 입력하세요."/></td>
@@ -103,7 +103,7 @@
                                 <option value="empas.com">empas.com</option>
                                 <option value="dreamwiz.com">dreamwiz.com</option>
                             </select>
-                            <input type="text" id="customEmail" placeholder="직접 입력" style="display: none;">
+                            <input type="text" id="customEmail" name="customEmail" placeholder="직접 입력" style="display: none;">
                         </div>
                     </div>
                 </td>

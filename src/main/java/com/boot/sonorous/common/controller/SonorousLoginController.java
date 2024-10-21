@@ -61,34 +61,6 @@ public class SonorousLoginController {
         return "common/loginForm";
     }
 
-    @PostMapping("/common/login")
-    public String login(@ModelAttribute Member member,
-                        Model model,
-                        HttpSession session) throws Exception{
-
-        String message = "";
-        boolean isError = true;
-
-        String viewPage = "common/message";
-
-        String username = member.getUsername();
-        String password = member.getPassword();
-        Member loginMember = sonorousMemberService.getLogin(username, password);
-        if(loginMember != null){
-            session.setAttribute("loginMember", loginMember);
-            message = member.getUsername()+" 님 환영합니다.";
-            isError = false;
-        } else {
-            message = "로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.";
-            isError = true;
-        }
-
-        model.addAttribute("isError", isError);
-        model.addAttribute("message", message);
-        model.addAttribute("locationURL", "/main");
-
-        return viewPage;
-    }
 
     @GetMapping("/common/logout")
     public String logout(Model model,
@@ -104,5 +76,4 @@ public class SonorousLoginController {
         return null;
 
     }
-
 }

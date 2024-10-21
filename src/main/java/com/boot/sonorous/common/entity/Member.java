@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(of = "id")
-public class Member implements UserDetails {
+public class Member extends BaseTimeEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +37,6 @@ public class Member implements UserDetails {
     private String birth;
     private String phone;
     private String email;
-    private String insDate;
-    private String modDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

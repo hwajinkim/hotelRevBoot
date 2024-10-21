@@ -20,12 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class SonorousRoomApiController {
 
     @Autowired
     private SonorousRoomService sonorousRoomService;
 
-    @GetMapping("/api/admin/roomList")
+    @GetMapping("/admin/roomList")
     public ResponseEntity<ResponseDto<Room>> roomList(@PageableDefault(page = 0, size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<Room> list = sonorousRoomService.roomList(pageable);
@@ -37,7 +38,7 @@ public class SonorousRoomApiController {
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/api/admin/roomInsert")
+    @PostMapping("/admin/roomInsert")
     public ResponseEntity<Integer> roomInsert(Room room,
                                               List<MultipartFile> files,
                                               MultipartFile thumbnail) throws Exception {
@@ -52,7 +53,7 @@ public class SonorousRoomApiController {
         return ResponseEntity.ok(1);
     }
 
-    @GetMapping("/api/admin/roomView/{roomId}")
+    @GetMapping("/admin/roomView/{roomId}")
     public ResponseEntity<ResponseDto<Room>> roomView(@PathVariable Integer roomId) {
         Room roomDetail = sonorousRoomService.roomView(roomId);
 
@@ -64,7 +65,7 @@ public class SonorousRoomApiController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/api/admin/roomUpdatePage/{roomId}")
+    @GetMapping("/admin/roomUpdatePage/{roomId}")
     public ResponseEntity<ResponseDto<Room>> roomUpdatePage(@PathVariable Integer roomId){
         Room roomDetail = sonorousRoomService.roomView(roomId);
 
@@ -75,7 +76,7 @@ public class SonorousRoomApiController {
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/api/admin/roomUpdate/{roomId}")
+    @PostMapping("/admin/roomUpdate/{roomId}")
     public ResponseEntity<Integer> roomUpdate(@PathVariable Integer roomId, Room room) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -89,7 +90,7 @@ public class SonorousRoomApiController {
         return ResponseEntity.ok(1);
     }
 
-    @DeleteMapping("/api/admin/roomDelete/{roomId}")
+    @DeleteMapping("/admin/roomDelete/{roomId}")
     public ResponseEntity<Integer> roomDelete(@PathVariable Integer roomId){
 
         sonorousRoomService.delete(roomId);
