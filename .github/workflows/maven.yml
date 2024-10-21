@@ -31,7 +31,7 @@ jobs:
 
     # 2. Spring Boot 애플리케이션 빌드
     - name: Build with Maven
-      run: mvn package
+      run: mvn clean package
 
     # 3. Docker 이미지 빌드
     - name: docker image build
