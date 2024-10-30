@@ -13,10 +13,10 @@ function login(){
             password: password
         }),
         success: function(response){
-            token = response.accessToken;
+            accessToken = response;
             alert('로그인에 성공하였습니다.');
             //서버로부터 JWT 토큰을 받으면 로컬 스토리지에 저장
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', accessToken);
             console.log('JWT 토큰이 로컬 스토리지에 저장되었습니다.');
             location.href="/main";
             // 로그인 성공 후 즉시 보호된 리소스 요청
