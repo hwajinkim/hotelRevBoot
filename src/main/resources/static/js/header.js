@@ -1,6 +1,8 @@
 $(function(){
     const token = localStorage.getItem('token');
-    sendRequest(token);
+    if(token != ''){
+        sendRequest(token);
+    }
         if(token){
             $('.not-login').css('display', 'none');
 
