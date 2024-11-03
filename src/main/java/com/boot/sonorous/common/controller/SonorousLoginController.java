@@ -60,20 +60,4 @@ public class SonorousLoginController {
     public String loginForm(){
         return "common/loginForm";
     }
-
-
-    @GetMapping("/common/logout")
-    public String logout(Model model,
-                         HttpSession session, HttpServletResponse response) throws Exception{
-
-        session.removeAttribute("loginMember");
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('로그아웃 되었습니다.'); location.href='/main';</script>");
-        out.flush();
-        out.close();
-
-        return null;
-
-    }
 }

@@ -1,20 +1,17 @@
 $(function(){
     const token = localStorage.getItem('token');
-    if(token != ''){
-        sendRequest(token);
+    //accessToken 만료체크
+    if(token){
+        chkExpiredAccess(token);
     }
+    //refreshToken 만료체크
+    chkExpiredRefresh();
+
         if(token){
             $('.not-login').css('display', 'none');
 
             const payload = JSON.parse(atob(token.split('.')[1]));
             console.log(payload);
-            const exp = payload.exp * 1000;
-
-            /*if(Date.now() >= exp){
-                alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
-                localStorage.removeItem('token');
-                window.location.href="/common/loginForm";
-            }*/
 
             const userAuth = payload.auth;
 
@@ -34,7 +31,7 @@ $(function(){
 });
 
 //accessToken 만료 체크
-function sendRequest(token){
+function chkExpiredAccess(token){
     return $.ajax({
         url : '/api/auth/accessChk',
         type: 'GET',
@@ -43,14 +40,18 @@ function sendRequest(token){
         },
         success: function (response){
             if(response === 'AccessToken expired'){
-                reissueToken();
+                console.log(response);
+                reissueAccessToken();
             }
+        },
+        error: function(xhr, status, error) {
+            console.error("error : " + error);
         }
     });
 }
 
 //accessToken 만료 시 refreshToken을 이용해 재발급
-function reissueToken(){
+function reissueAccessToken(){
     return $.ajax({
         url : '/api/auth/reissue',
         type: 'GET',
@@ -58,6 +59,26 @@ function reissueToken(){
             accessToken = response;
             localStorage.removeItem('token');
             localStorage.setItem('token', accessToken);
+        },
+        error: function(xhr, status, error) {
+            console.error("error : " + error);
+        }
+    });
+}
+
+function chkExpiredRefresh(){
+    return $.ajax({
+        url : '/api/auth/refreshChk',
+        type: 'GET',
+        success: function (response){
+            if(response === 'Refresh token is expired'){
+                localStorage.removeItem('token');
+                alert("인증이 만료되었습니다. 다시 로그인하세요.");
+                location.href="/common/loginForm";
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("error : " + error);
         }
     });
 }

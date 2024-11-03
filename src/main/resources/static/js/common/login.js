@@ -22,36 +22,30 @@ function login(){
             // 로그인 성공 후 즉시 보호된 리소스 요청
            //requestTest(token);
         },
-        error: function(){
-            alert('로그인에 실패하였습니다.');
+        error: function(xhr, status, error) {
+            console.error('로그인에 실패하였습니다.:', error);
         }
     });
 }
 
-function requestTest(token){
-    $.ajax({
-        url: '/api/auth/authorization',
-        type: 'GET',
-        headers: {
-            'Authorization': 'Bearer '+token
-        },
-        success: function(response){
-            if(response == 'success'){
-                response = '인가에 성공하였습니다.';
-            }
-            alert(response);
-            location.href="/main";
-        },
-        error: function(){
-            alert("인가에 실패하였습니다.");
-            localStorage.removeItem('token');
-        }
-    });
-}
-
+//로그아웃 시
+//1. localStorage의 accessToken 제거
+//2. cookie의 refreshToken 제거
+//3. DB의 refreshToken 제거
 function logout(){
     localStorage.removeItem('token');
-    console.log('JWT 토큰이 삭제되었습니다.');
-    alert('로그아웃 되었습니다.');
-    location.href="/main";
+    $.ajax({
+        url: '/api/auth/logout',
+        type: 'GET',
+        success: function(response){
+            if(response === 'Logout completed'){
+                console.log('JWT 토큰이 삭제되었습니다.');
+                alert('로그아웃 되었습니다.');
+                location.href="/main";
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('로그아웃에 실패하였습니다.:', error);
+        }
+    });
 }
