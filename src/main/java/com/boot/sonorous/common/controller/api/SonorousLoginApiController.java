@@ -1,8 +1,8 @@
 package com.boot.sonorous.common.controller.api;
 import com.boot.sonorous.common.dto.SignInDto;
 import com.boot.sonorous.common.entity.JwtToken;
-import com.boot.sonorous.common.entity.RefreshToken;
 import com.boot.sonorous.common.service.SonorousMemberService;
+import com.boot.sonorous.common.service.TokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,14 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/auth")
 public class SonorousLoginApiController {
 
+    private final SonorousMemberService sonorousMemberService;
+
+    private final TokenService tokenService;
+
     @Autowired
-    SonorousMemberService sonorousMemberService;
+    public SonorousLoginApiController(SonorousMemberService sonorousMemberService, TokenService tokenService){
+        this.sonorousMemberService = sonorousMemberService;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody SignInDto signInDto, HttpServletResponse response){
@@ -34,7 +39,7 @@ public class SonorousLoginApiController {
             cookie.setMaxAge(7 * 24 * 60 * 60);
             response.addCookie(cookie);
 
-            sonorousMemberService.insertRefreshToken(jwtToken.getRefreshToken());
+            tokenService.saveRefreshToken(username, jwtToken.getRefreshToken());
 
             return ResponseEntity.ok(jwtToken.getAccessToken());
         } catch(AuthenticationException e) {
@@ -98,7 +103,7 @@ public class SonorousLoginApiController {
             if(!sonorousMemberService.isTokenExpired(refreshToken)){
 
                 //DB에서 만료된 refreshToken 삭제
-                sonorousMemberService.deleteRefreshToken(refreshToken);
+                //sonorousMemberService.deleteRefreshToken(refreshToken);
 
                 // 쿠키에서 refreshToken 삭제
                 Cookie cookie = new Cookie("refreshToken", null);
@@ -132,7 +137,7 @@ public class SonorousLoginApiController {
         if(refreshToken != null && !refreshToken.isEmpty()) {
             if (sonorousMemberService.isTokenExpired(refreshToken)) {
                 // DB에서 만료된 refreshToken 삭제
-                sonorousMemberService.deleteRefreshToken(refreshToken);
+                //sonorousMemberService.deleteRefreshToken(refreshToken);
 
                 // 쿠키에서 refreshToken 삭제
                 Cookie cookie = new Cookie("refreshToken", null);

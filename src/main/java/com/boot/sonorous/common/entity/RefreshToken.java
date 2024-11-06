@@ -2,16 +2,21 @@ package com.boot.sonorous.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
-@Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@RedisHash(value = "refreshToken", timeToLive = 7 * 24 * 60 * 60)
 public class RefreshToken {
 
     @Id
-    @Column(nullable = false)
-    private String refreshToken;
+    private String userId;
+    private String token;
 }

@@ -3,9 +3,8 @@ package com.boot.sonorous.common.service;
 import com.boot.sonorous.common.dto.SignUpDto;
 import com.boot.sonorous.common.entity.JwtToken;
 import com.boot.sonorous.common.entity.Member;
-import com.boot.sonorous.common.entity.RefreshToken;
+import com.boot.sonorous.common.entity.Token;
 import com.boot.sonorous.common.repository.SonorousMemberRepository;
-import com.boot.sonorous.common.repository.TokenRepository;
 import com.boot.sonorous.common.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,11 @@ public class SonorousMemberService {
 
     @Autowired
     SonorousMemberRepository sonorousMemberRepository;
-    @Autowired
-    TokenRepository tokenRepository;
+    /*@Autowired
+    //TokenRepository tokenRepository;*/
+
+    /*@Autowired
+    RefreshTokenRepository redisRepository;*/
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
@@ -85,8 +87,15 @@ public class SonorousMemberService {
 
         sonorousMemberRepository.save(member);
     }
+    @Transactional
     public void insertRefreshToken(String refreshToken) {
-        tokenRepository.save(new RefreshToken(refreshToken));
+        //tokenRepository.save(new RefreshToken(refreshToken));
+        Token token = new Token();
+        Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken);
+        String name = authentication.getName();
+
+        /*redisRepository.save(new Token(refreshToken, ));*/
+
     }
     public boolean isTokenExpired(String token) {
         return jwtTokenProvider.validateToken(token);
@@ -99,13 +108,15 @@ public class SonorousMemberService {
         return jwtToken;
     }
 
+    /*@Transactional
     public void deleteRefreshToken(String refreshToken) {
         if(tokenRepository.existsByRefreshToken(refreshToken)){
             tokenRepository.deleteById(refreshToken);
         }
     }
 
+    @Transactional
     public List<?> getRrfreshToken() {
         return tokenRepository.findAll();
-    }
+    }*/
 }
