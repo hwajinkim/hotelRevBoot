@@ -1,6 +1,7 @@
 package com.boot.sonorous.common.controller.api;
 import com.boot.sonorous.common.dto.SignInDto;
 import com.boot.sonorous.common.entity.JwtToken;
+import com.boot.sonorous.common.security.JwtTokenProvider;
 import com.boot.sonorous.common.service.SonorousMemberService;
 import com.boot.sonorous.common.service.TokenService;
 import jakarta.servlet.http.Cookie;
@@ -20,7 +21,7 @@ public class SonorousLoginApiController {
     private final TokenService tokenService;
 
     @Autowired
-    public SonorousLoginApiController(SonorousMemberService sonorousMemberService, TokenService tokenService){
+    public SonorousLoginApiController(SonorousMemberService sonorousMemberService, TokenService tokenService, JwtTokenProvider jwtTokenProvider){
         this.sonorousMemberService = sonorousMemberService;
         this.tokenService = tokenService;
     }
@@ -100,10 +101,11 @@ public class SonorousLoginApiController {
 
             boolean result = sonorousMemberService.isTokenExpired(refreshToken);
 
+            // refreshToken이 만료 되었을 때
             if(!sonorousMemberService.isTokenExpired(refreshToken)){
 
-                //DB에서 만료된 refreshToken 삭제
-                //sonorousMemberService.deleteRefreshToken(refreshToken);
+                // Redis에서 만료된 refreshToken 삭제
+                tokenService.deleteRefreshToken(refreshToken);
 
                 // 쿠키에서 refreshToken 삭제
                 Cookie cookie = new Cookie("refreshToken", null);
@@ -135,22 +137,20 @@ public class SonorousLoginApiController {
         }
 
         if(refreshToken != null && !refreshToken.isEmpty()) {
-            if (sonorousMemberService.isTokenExpired(refreshToken)) {
-                // DB에서 만료된 refreshToken 삭제
-                //sonorousMemberService.deleteRefreshToken(refreshToken);
 
-                // 쿠키에서 refreshToken 삭제
-                Cookie cookie = new Cookie("refreshToken", null);
-                cookie.setPath("/");
-                cookie.setMaxAge(0);
-                cookie.setHttpOnly(true);
-                cookie.setSecure(true);
-                response.addCookie(cookie);
+            // Redis에서 만료된 refreshToken 삭제
+            tokenService.deleteRefreshToken(refreshToken);
 
-                reply = "Logout completed";
-            } else {
-                reply = "Refresh token is expired";
-            }
+            // 쿠키에서 refreshToken 삭제
+            Cookie cookie = new Cookie("refreshToken", null);
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            response.addCookie(cookie);
+
+            reply = "Logout completed";
+
         }
         return ResponseEntity.ok(reply);
     }
